@@ -15,4 +15,4 @@ _givecarplate [car] [plate] [playerID]
 _delcarplate [plate]
 ```
 
-FiveM Forum Release:
+FiveM Forum Release:https://forum.cfx.re/t/release-esx-give-or-delete-car-to-owned-vehicle-database-plate-can-custom-or-random-spawn/1050821
