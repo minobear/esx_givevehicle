@@ -94,12 +94,6 @@ end)
 
 Citizen.CreateThread(function()
     TriggerEvent('chat:addSuggestion', '/givecar', 'Give car with a random plate', {{ name="car", help="Name of the car model" },{ name="id", help="The ID of player (default is yourself)" }})
-end)
-
-Citizen.CreateThread(function()
     TriggerEvent('chat:addSuggestion', '/givecarplate', 'Give car with custom plate', {{ name="car", help="Name of the car model" },{ name="plate", help="The car plate" },{ name="id", help="The ID of player (default is yourself)" }})
-end)
-
-Citizen.CreateThread(function()
     TriggerEvent('chat:addSuggestion', '/delcarplate', 'Delete a owned car by plate', {{ name="plate", help="The car plate" }})
 end)
