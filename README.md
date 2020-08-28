@@ -6,7 +6,7 @@ also you can delete a vehicle by plate
 **In game:** (Only admin or superadmin can do this)
 
 Give a car to the target player: ``/givecar [playerID] [vehicle] <plate>``
-_Note: If plate is none will randomly generate a new plate
+_Note: If plate is none will randomly generate a new plate_
 
 Delete a owned car by plate: ``/delcarplate <plate>``
 
