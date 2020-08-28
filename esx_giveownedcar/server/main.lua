@@ -21,7 +21,7 @@ TriggerEvent('es:addGroupCommand', 'givecar', 'admin', function(source, args, us
 	end
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
-end, {help = 'Give car with plate to the target player', params = {{name = "id", help = 'The ID of player'}, {name = "car", help = 'Name of the car model'}, {name = "<plate>", help = 'Custom plate name, if none will randomly generate a new plate'}}})
+end, {help = 'Give a car to the target player', params = {{name = "id", help = 'The ID of player'}, {name = "vehicle", help = 'Name of the car model'}, {name = "<plate>", help = 'Custom plate name, if none will randomly generate a new plate'}}})
 
 RegisterCommand('_givecar', function(source, args)
     if source == 0 then		
