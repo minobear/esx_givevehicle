@@ -1,15 +1,23 @@
 ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
---give car with a random plate- 1: carModel (2: playerID)
+--give car with a random plate- 1: playerID 2: carModel (3: plate)
 TriggerEvent('es:addGroupCommand', 'givecar', 'admin', function(source, args, user)
-	if args[2] ~= nil then
-		local playerName = GetPlayerName(args[2])
-		TriggerClientEvent('esx_giveownedcar:spawnVehicle',source,args[1],args[2],playerName,'player')
+	if args[1] == nil or args[2] == nil then
+		TriggerClientEvent('esx:showNotification', source, '~r~/givecar [playerID] [carModel] <plate>')
+	elseif args[3] ~= nil then
+		local playerName = GetPlayerName(args[1])
+		local plate = args[3]
+		if #args > 3 then
+			for i=4, #args do
+				plate = plate.." "..args[i]
+			end		
+		end	
+		plate = string.upper(plate)
+		TriggerClientEvent('esx_giveownedcar:spawnVehiclePlate', source, args[1], args[2], plate, playerName, 'player')		
 	else
-		local sourceID = source
-		local playerName = GetPlayerName(sourceID)
-		TriggerClientEvent('esx_giveownedcar:spawnVehicle',source,args[1],sourceID,playerName,'player')
+		local playerName = GetPlayerName(args[1])
+		TriggerClientEvent('esx_giveownedcar:spawnVehicle', source, args[1], args[2], playerName, 'player')
 	end
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
@@ -17,62 +25,78 @@ end, {help = 'Give car with a random plate', params = {{name = "car", help = 'Na
 
 RegisterCommand('_givecar', function(source, args)
     if source == 0 then		
-		if args[2] ~= nil then
-			local sourceID = args[2]
+		if args[1] == nil or args[2] == nil then
+			print("SYNTAX ERROR: _givecar [playerID] [carModel] <plate>")
+		elseif args[3] ~= nil then
+			local sourceID = args[1]
 			local playerName = GetPlayerName(sourceID)
-			TriggerClientEvent('esx_giveownedcar:spawnVehicle',sourceID,args[1],args[2],playerName,'console')			
+			local plate = args[3]
+			if #args > 3 then
+				for i=4, #args do
+					plate = plate.." "..args[i]
+				end		
+			end
+			plate = string.upper(plate)
+			TriggerClientEvent('esx_giveownedcar:spawnVehiclePlate', sourceID, args[1], args[2], plate, playerName, 'console')
 		else
-			print('ERROR: you need type playerID')			
+			local playerName = GetPlayerName(args[1])
+			TriggerClientEvent('esx_giveownedcar:spawnVehicle', sourceID, args[1], args[2], playerName, 'console')					
 		end				
 	end
 end)
 
-RegisterServerEvent('esx_giveownedcar:printToConsole')
-AddEventHandler('esx_giveownedcar:printToConsole', function(msg)
-	print(msg)
-end)
-
---give car with custom plate- 1: carModel 2: plate (3: playerID)
-TriggerEvent('es:addGroupCommand', 'givecarplate', 'admin', function(source, args, user)
+TriggerEvent('es:addGroupCommand', 'delcarplate', 'admin', function(source, args, user)	
 	if args[1] == nil then
-		TriggerClientEvent('esx:showNotification', source, '~r~/givecarplate [carModel] [plate] [playerID]')
+		TriggerClientEvent('esx:showNotification', source, '~r~/delcarplate [plate]')
 	else
-		if args[2] == nil then
-			TriggerClientEvent('esx:showNotification', source, _U('none_plate'))
-		else
-			if args[3] ~= nil then
-				local playerName = GetPlayerName(args[3])
-				TriggerClientEvent('esx_giveownedcar:spawnVehiclePlate',source,args[1],args[2],args[3],playerName,'player')
-			else
-				local sourceID = source
-				local playerName = GetPlayerName(sourceID)
-				TriggerClientEvent('esx_giveownedcar:spawnVehiclePlate',source,args[1],args[2],sourceID,playerName,'player')
-			end
+		local plate = args[1]
+		if #args > 1 then
+			for i=2, #args do
+				plate = plate.." "..args[i]
+			end		
 		end
+		plate = string.upper(plate)
+		
+		local result = MySQL.Sync.execute('DELETE FROM owned_vehicles WHERE plate = @plate', {
+			['@plate'] = plate
+		})
+		if result == 1 then
+			TriggerClientEvent('esx:showNotification', source, _U('del_car', plate))
+		elseif result == 0 then
+			TriggerClientEvent('esx:showNotification', source, _U('del_car_error', plate))
+		end		
 	end
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
-end, {help = 'Give car with custom plate', params = {{name = "car", help = 'Name of the car model'}, {name = "plate", help = 'The car plate'}, {name = "id", help = 'The ID of player (default is yourself)'}}})
+end, {help = 'Delete a owned car by plate', params = {{name = "plate", help = 'The car plate'}}})
 
-RegisterCommand('_givecarplate', function(source, args)
-    if source == 0 then	
-		if args[1] == nil then
-			print('ERROR: _givecar [carModel] [plate] [playerID]')
+RegisterCommand('_delcarplate', function(source, args)
+    if source == 0 then
+		if args[1] == nil then	
+			print("SYNTAX ERROR: _delcarplate [plate]")
 		else
-			if args[2] == nil then
-				print('ERROR: you need type car plate')
-			else
-				if args[3] ~= nil then
-					local sourceID = args[3]
-					local playerName = GetPlayerName(sourceID)
-					TriggerClientEvent('esx_giveownedcar:spawnVehiclePlate',sourceID,args[1],args[2],args[3],playerName,'console')
-				else
-					print('ERROR: you need type playerID')
-				end
-			end		
+			local plate = args[1]
+			if #args > 1 then
+				for i=2, #args do
+					plate = plate.." "..args[i]
+				end		
+			end
+			plate = string.upper(plate)
+			
+			local result = MySQL.Sync.execute('DELETE FROM owned_vehicles WHERE plate = @plate', {
+				['@plate'] = plate
+			})
+			if result == 1 then
+				print('Deleted car plate: ' ..plate)
+			elseif result == 0 then
+				print('Can\'t find car with plate is ' ..plate)
+			end
 		end
 	end
 end)
+
+
+--functions--
 
 RegisterServerEvent('esx_giveownedcar:setVehicle')
 AddEventHandler('esx_giveownedcar:setVehicle', function (vehicleProps, playerID)
@@ -92,22 +116,7 @@ AddEventHandler('esx_giveownedcar:setVehicle', function (vehicleProps, playerID)
 	end)
 end)
 
-
---delete car by plate
-TriggerEvent('es:addGroupCommand', 'delcarplate', 'admin', function(source, args, user)	
-	MySQL.Async.execute('DELETE FROM owned_vehicles WHERE plate = @plate', {
-		['@plate'] = args[1]
-	})
-	TriggerClientEvent('esx:showNotification', source, _U('del_car', args[1]))
-end, function(source, args, user)
-	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
-end, {help = 'Delete a owned car by plate', params = {{name = "plate", help = 'The car plate'}}})
-
-RegisterCommand('_delcarplate', function(source, args)
-    if source == 0 then
-		MySQL.Async.execute('DELETE FROM owned_vehicles WHERE plate = @plate', {
-			['@plate'] = args[1]
-		})
-		print('Deleted Car Plate: ' ..args[1])
-	end
+RegisterServerEvent('esx_giveownedcar:printToConsole')
+AddEventHandler('esx_giveownedcar:printToConsole', function(msg)
+	print(msg)
 end)

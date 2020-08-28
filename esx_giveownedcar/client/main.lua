@@ -8,7 +8,7 @@ Citizen.CreateThread(function()
 end)
 
 RegisterNetEvent('esx_giveownedcar:spawnVehicle')
-AddEventHandler('esx_giveownedcar:spawnVehicle', function(model, playerID, playerName, type)
+AddEventHandler('esx_giveownedcar:spawnVehicle', function(playerID, model, playerName, type)
 	local playerPed = GetPlayerPed(-1)
 	local coords    = GetEntityCoords(playerPed)
 	local carExist  = false
@@ -33,18 +33,18 @@ AddEventHandler('esx_giveownedcar:spawnVehicle', function(model, playerID, playe
 		end		
 	end)
 	
-	Wait(1000)
+	Wait(2000)
 	if not carExist then
 		if type ~= 'console' then
-			ESX.ShowNotification(_U('unknown_car'))
+			ESX.ShowNotification(_U('unknown_car', model))
 		else
-			TriggerServerEvent('esx_giveownedcar:printToConsole', "ERROR: unknown car")
+			TriggerServerEvent('esx_giveownedcar:printToConsole', "ERROR: "..model.." is an unknown vehicle model")
 		end		
 	end
 end)
 
 RegisterNetEvent('esx_giveownedcar:spawnVehiclePlate')
-AddEventHandler('esx_giveownedcar:spawnVehiclePlate', function(model, plate, playerID, playerName, type)
+AddEventHandler('esx_giveownedcar:spawnVehiclePlate', function(playerID, model, plate, playerName, type)
 	local playerPed = GetPlayerPed(-1)
 	local coords    = GetEntityCoords(playerPed)
 	local generatedPlate = string.upper(plate)
@@ -82,12 +82,12 @@ AddEventHandler('esx_giveownedcar:spawnVehiclePlate', function(model, plate, pla
 		end
 	end, generatedPlate)
 	
-	Wait(1000)
+	Wait(2000)
 	if not carExist then
 		if type ~= 'console' then
-			ESX.ShowNotification(_U('unknown_car'))
+			ESX.ShowNotification(_U('unknown_car', model))
 		else
-			TriggerServerEvent('esx_giveownedcar:printToConsole', "ERROR: unknown car")
+			TriggerServerEvent('esx_giveownedcar:printToConsole', "ERROR: "..model.." is an unknown vehicle model")
 		end		
 	end	
 end)
