@@ -5,18 +5,17 @@ also you can delete a vehicle by plate
 # **Commands:**
 **In game:** (Only admin or superadmin can do this)
 
-Give a car with random plate number: ``/givecar <car> [playerID]``
-
-Give a car with custom plate number: ``/givecarplate <car> <plate> [playerID]``
+Give a car to the target player: ``/givecar [playerID] [vehicle] <plate>``
+_Note: If plate is none will randomly generate a new plate
 
 Delete a owned car by plate: ``/delcarplate <plate>``
 
 **On console:** (prefix need change to “_”)
 ```
-_givecar <car> <playerID>
-_givecarplate <car> <plate> <playerID>
+_givecar [playerID] [vehicle] <plate>
 _delcarplate <plate>
 ```
+
 # **Requirements:**
 * es_extended
 * esx_vehicleshop 
