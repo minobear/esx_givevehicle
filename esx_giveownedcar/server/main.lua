@@ -24,11 +24,11 @@ end, function(source, args, user)
 end, {help = 'Give a car to the target player', params = {{name = "id", help = 'The ID of player'}, {name = "vehicle", help = 'Name of the car model'}, {name = "<plate>", help = 'Custom plate name, if none will randomly generate a new plate'}}})
 
 RegisterCommand('_givecar', function(source, args)
-    if source == 0 then		
+    if source == 0 then	
+		local sourceID = args[1]
 		if args[1] == nil or args[2] == nil then
 			print("SYNTAX ERROR: _givecar [playerID] [carModel] <plate>")
 		elseif args[3] ~= nil then
-			local sourceID = args[1]
 			local playerName = GetPlayerName(sourceID)
 			local plate = args[3]
 			if #args > 3 then
