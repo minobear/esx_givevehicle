@@ -3,8 +3,7 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 --give car with a random plate- 1: playerID 2: carModel (3: plate)
 RegisterCommand('givecar', function(source, args)
-	local identifier = ESX.GetPlayerFromId(source).identifier
-	if havePermission(identifier) then
+	if havePermission(source) then
 		if args[1] == nil or args[2] == nil then
 			TriggerClientEvent('esx:showNotification', source, '~r~/givecar [playerID] [carModel] <plate>')
 		elseif args[3] ~= nil then
@@ -49,8 +48,7 @@ RegisterCommand('_givecar', function(source, args)
 end)
 
 RegisterCommand('delcarplate', function(source, args)
-	local identifier = ESX.GetPlayerFromId(source).identifier
-	if havePermission(identifier) then
+	if havePermission(source) then
 		if args[1] == nil then
 			TriggerClientEvent('esx:showNotification', source, '~r~/delcarplate [plate]')
 		else
@@ -127,7 +125,8 @@ AddEventHandler('esx_giveownedcar:printToConsole', function(msg)
 	print(msg)
 end)
 
-function havePermission(identifier)
+function havePermission(_source)
+	local identifier = ESX.GetPlayerFromId(_source).identifier
 	local isAdmin = false
 	for _,v in pairs(Config.Admins) do
 		if v == identifier then
@@ -135,6 +134,8 @@ function havePermission(identifier)
 			break
 		end
 	end
+	
+	if IsPlayerAceAllowed(_source, "giveownedcar.command") then isAdmin = true end
 	
 	return isAdmin
 end
