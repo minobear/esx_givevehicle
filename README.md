@@ -1,21 +1,21 @@
 # **Depiction:**
-This plugin you can give vehicle with custom or random plate number into player's garage with command
-also you can delete a vehicle by plate
+This plugin you can give vehicle with custom or random plate number into player's garage with command  
+also you can delete a vehicle by plate  
 
 # **Commands:**
-**In game:** (Only admin or superadmin can do this)
+**In game:** (give permission in config)  
 
-Give a car to the target player: ``/givecar [playerID] [vehicle] <plate>``
-_Note: If plate is none will randomly generate a new plate_
+Give a car to the target player:  ``/givecar [playerID] [vehicle] <plate>``    
+*Note: If plate is none will randomly generate a new plate*  
+  
+Delete a owned car by plate: ``/delcarplate [plate]``  
 
-Delete a owned car by plate: ``/delcarplate <plate>``
-
-**On console:** (prefix need change to “_”)
+**On console:**  (prefix need change to "_")
 ```
-_givecar [playerID] [vehicle] <plate>
-_delcarplate <plate>
+_givecar [playerID] [car] <plate>
+_delcarplate [plate]
 ```
-
+  
 # **Requirements:**
 * es_extended
 * esx_vehicleshop 
