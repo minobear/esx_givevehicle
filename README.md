@@ -15,6 +15,20 @@ Delete a owned car by plate: ``/delcarplate [plate]``
 _givecar [playerID] [car] <plate>
 _delcarplate [plate]
 ```
+
+# **Config:**
+```
+Config = {}
+Config.Locale = 'en' -- en, tw
+
+Config.ReceiveMsg = true
+
+-- Allow below identifier player to execute commands
+Config.Admins = {
+--  "steam:110000112b4917e",
+  ""
+}
+```
   
 # **Requirements:**
 * es_extended
