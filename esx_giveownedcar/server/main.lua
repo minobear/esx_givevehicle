@@ -4,7 +4,7 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 --give car with a random plate- 1: playerID 2: carModel (3: plate)
 RegisterCommand('givecar', function(source, args)
 	local identifier = ESX.GetPlayerFromId(source).identifier
-	if havePermission(identifier)
+	if havePermission(identifier) then
 		if args[1] == nil or args[2] == nil then
 			TriggerClientEvent('esx:showNotification', source, '~r~/givecar [playerID] [carModel] <plate>')
 		elseif args[3] ~= nil then
@@ -50,7 +50,7 @@ end)
 
 RegisterCommand('delcarplate', function(source, args)
 	local identifier = ESX.GetPlayerFromId(source).identifier
-	if havePermission(identifier)
+	if havePermission(identifier) then
 		if args[1] == nil then
 			TriggerClientEvent('esx:showNotification', source, '~r~/delcarplate [plate]')
 		else
