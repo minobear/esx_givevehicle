@@ -7,6 +7,16 @@ Citizen.CreateThread(function()
 	end
 end)
 
+TriggerEvent('chat:addSuggestion', '/givecar', 'Give a vehicle to player', {
+	{ name="id", help="The ID of the player" },
+    { name="vehicle", help="Vehicle model" },
+    { name="<plate>", help="Vehicle plate, skip if you want random generate plate number" }
+})
+
+TriggerEvent('chat:addSuggestion', '/delcarplate', 'Delete a owned vehicle by plate number', {
+	{ name="plate", help="Vehicle's plate number" }
+})
+
 RegisterNetEvent('esx_giveownedcar:spawnVehicle')
 AddEventHandler('esx_giveownedcar:spawnVehicle', function(playerID, model, playerName, type)
 	local playerPed = GetPlayerPed(-1)

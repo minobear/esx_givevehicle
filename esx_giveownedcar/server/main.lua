@@ -5,7 +5,7 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 RegisterCommand('givecar', function(source, args)
 	if havePermission(source) then
 		if args[1] == nil or args[2] == nil then
-			TriggerClientEvent('esx:showNotification', source, '~r~/givecar [playerID] [carModel] <plate>')
+			TriggerClientEvent('esx:showNotification', source, '~r~/givecar <playerID> <carModel> [plate]')
 		elseif args[3] ~= nil then
 			local playerName = GetPlayerName(args[1])
 			local plate = args[3]
@@ -21,7 +21,7 @@ RegisterCommand('givecar', function(source, args)
 			TriggerClientEvent('esx_giveownedcar:spawnVehicle', source, args[1], args[2], playerName, 'player')
 		end
 	else
-		TriggerClientEvent('esx:showNotification', source, '~r~You don\'t have permission to execute this command!')
+		TriggerClientEvent('esx:showNotification', source, '~r~You don\'t have permission to do this command!')
 	end
 end)
 
@@ -29,7 +29,7 @@ RegisterCommand('_givecar', function(source, args)
     if source == 0 then
 		local sourceID = args[1]
 		if args[1] == nil or args[2] == nil then
-			print("SYNTAX ERROR: _givecar [playerID] [carModel] <plate>")
+			print("SYNTAX ERROR: _givecar <playerID> <carModel> [plate]")
 		elseif args[3] ~= nil then
 			local playerName = GetPlayerName(sourceID)
 			local plate = args[3]
@@ -50,7 +50,7 @@ end)
 RegisterCommand('delcarplate', function(source, args)
 	if havePermission(source) then
 		if args[1] == nil then
-			TriggerClientEvent('esx:showNotification', source, '~r~/delcarplate [plate]')
+			TriggerClientEvent('esx:showNotification', source, '~r~/delcarplate <plate>')
 		else
 			local plate = args[1]
 			if #args > 1 then
@@ -70,14 +70,14 @@ RegisterCommand('delcarplate', function(source, args)
 			end		
 		end
 	else
-		TriggerClientEvent('esx:showNotification', source, '~r~You don\'t have permission to execute this command!')
+		TriggerClientEvent('esx:showNotification', source, '~r~You don\'t have permission to do this command!')
 	end		
 end)
 
 RegisterCommand('_delcarplate', function(source, args)
     if source == 0 then
 		if args[1] == nil then	
-			print("SYNTAX ERROR: _delcarplate [plate]")
+			print("SYNTAX ERROR: _delcarplate <plate>")
 		else
 			local plate = args[1]
 			if #args > 1 then
