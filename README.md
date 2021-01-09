@@ -25,7 +25,7 @@ _delcarplate [plate]
 # **Config:**
 ```
 Config = {}
-Config.Locale = 'en' -- en, tw
+Config.Locale = 'en'
 
 Config.ReceiveMsg = true
 
