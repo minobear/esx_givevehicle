@@ -5,5 +5,6 @@ Config.ReceiveMsg = true
 
 -- Allow below identifier player to execute commands
 Config.AuthorizedRanks = {
---	'admin'
+  'superadmin',
+--  'admin'
 }
