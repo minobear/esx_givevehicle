@@ -7,7 +7,25 @@ Citizen.CreateThread(function()
 	end
 end)
 
-TriggerEvent('chat:addSuggestion', '/givecar', 'Give a vehicle to player', {
+TriggerEvent('chat:addSuggestion', '/givecar', 'Give a car to player', {
+	{ name="id", help="The ID of the player" },
+    { name="vehicle", help="Vehicle model" },
+    { name="<plate>", help="Vehicle plate, skip if you want random generate plate number" }
+})
+
+TriggerEvent('chat:addSuggestion', '/giveplane', 'Give an airplane to player', {
+	{ name="id", help="The ID of the player" },
+    { name="vehicle", help="Vehicle model" },
+    { name="<plate>", help="Vehicle plate, skip if you want random generate plate number" }
+})
+
+TriggerEvent('chat:addSuggestion', '/giveboat', 'Give a boat to player', {
+	{ name="id", help="The ID of the player" },
+    { name="vehicle", help="Vehicle model" },
+    { name="<plate>", help="Vehicle plate, skip if you want random generate plate number" }
+})
+
+TriggerEvent('chat:addSuggestion', '/giveheli', 'Give a helicopter to player', {
 	{ name="id", help="The ID of the player" },
     { name="vehicle", help="Vehicle model" },
     { name="<plate>", help="Vehicle plate, skip if you want random generate plate number" }
@@ -18,7 +36,7 @@ TriggerEvent('chat:addSuggestion', '/delcarplate', 'Delete a owned vehicle by pl
 })
 
 RegisterNetEvent('esx_giveownedcar:spawnVehicle')
-AddEventHandler('esx_giveownedcar:spawnVehicle', function(playerID, model, playerName, type)
+AddEventHandler('esx_giveownedcar:spawnVehicle', function(playerID, model, playerName, type, vehicleType)
 	local playerPed = GetPlayerPed(-1)
 	local coords    = GetEntityCoords(playerPed)
 	local carExist  = false
@@ -32,7 +50,7 @@ AddEventHandler('esx_giveownedcar:spawnVehicle', function(playerID, model, playe
 			local newPlate     = exports.esx_vehicleshop:GeneratePlate()
 			local vehicleProps = ESX.Game.GetVehicleProperties(vehicle)
 			vehicleProps.plate = newPlate
-			TriggerServerEvent('esx_giveownedcar:setVehicle', vehicleProps, playerID)
+			TriggerServerEvent('esx_giveownedcar:setVehicle', vehicleProps, playerID, vehicleType)
 			ESX.Game.DeleteVehicle(vehicle)	
 			if type ~= 'console' then
 				ESX.ShowNotification(_U('gived_car', model, newPlate, playerName))
@@ -54,7 +72,7 @@ AddEventHandler('esx_giveownedcar:spawnVehicle', function(playerID, model, playe
 end)
 
 RegisterNetEvent('esx_giveownedcar:spawnVehiclePlate')
-AddEventHandler('esx_giveownedcar:spawnVehiclePlate', function(playerID, model, plate, playerName, type)
+AddEventHandler('esx_giveownedcar:spawnVehiclePlate', function(playerID, model, plate, playerName, type, vehicleType)
 	local playerPed = GetPlayerPed(-1)
 	local coords    = GetEntityCoords(playerPed)
 	local generatedPlate = string.upper(plate)
@@ -71,7 +89,7 @@ AddEventHandler('esx_giveownedcar:spawnVehiclePlate', function(playerID, model, 
 					local newPlate     = string.upper(plate)
 					local vehicleProps = ESX.Game.GetVehicleProperties(vehicle)
 					vehicleProps.plate = newPlate
-					TriggerServerEvent('esx_giveownedcar:setVehicle', vehicleProps, playerID)
+					TriggerServerEvent('esx_giveownedcar:setVehicle', vehicleProps, playerID, vehicleType)
 					ESX.Game.DeleteVehicle(vehicle)
 					if type ~= 'console' then
 						ESX.ShowNotification(_U('gived_car',  model, newPlate, playerName))
