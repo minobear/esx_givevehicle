@@ -162,10 +162,11 @@ AddEventHandler('esx_giveownedcar:printToConsole', function(msg)
 end)
 
 function havePermission(_source)
-	local identifier = GetPlayerIdentifier(_source)
+	local xPlayer = ESX.GetPlayerFromId(_source)
+	local playerGroup = xPlayer.getGroup()
 	local isAdmin = false
-	for _,v in pairs(Config.Admins) do
-		if v == identifier then
+	for k,v in pairs(Config.AuthorizedRanks) do
+		if v == playerGroup then
 			isAdmin = true
 			break
 		end
