@@ -3,7 +3,7 @@ This plugin you can give vehicle with custom or random plate number into player'
 also you can delete a vehicle by plate  
 
 # **Edit:**
-This only work with ``esx_advancedgarage!``
+This only work with ``esx_advancedgarage``!
 I made a change in ``client/main.lua``
 
 # **Commands:**
