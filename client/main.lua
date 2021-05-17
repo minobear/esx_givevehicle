@@ -78,7 +78,7 @@ AddEventHandler('esx_giveownedcar:spawnVehiclePlate', function(playerID, model, 
 	local generatedPlate = string.upper(plate)
 	local carExist  = false
 
-	ESX.TriggerServerCallback('esx_vehicleshop:isPlateTaken', function (isPlateTaken)
+	ESX.TriggerServerCallback('esx_advancedvehicleshop:isPlateTaken', function (isPlateTaken)
 		if not isPlateTaken then
 			ESX.Game.SpawnVehicle(model, coords, 0.0, function(vehicle) --get vehicle info	
 				if DoesEntityExist(vehicle) then
