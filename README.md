@@ -1,6 +1,10 @@
-# **Depiction:**
+# **Description:**
 This plugin you can give vehicle with custom or random plate number into player's garage with command  
 also you can delete a vehicle by plate  
+
+# **Edit:**
+This only work with ``esx_advancedvehicleshop``!
+I made a change in ``client/main.lua``
 
 # **Commands:**
 **In game:** (give permission in config)  
@@ -38,7 +42,7 @@ Config.AuthorizedRanks = {
   
 # **Requirements:**
 * es_extended
-* esx_vehicleshop 
+* esx_advancedvehicleshop 
 
-FiveM Forum Release:https://forum.cfx.re/t/release-esx-give-or-delete-car-to-owned-vehicle-database-plate-can-custom-or-random-spawn/1050821
+FiveM Forum Release: https://forum.cfx.re/t/release-esx-give-or-delete-car-to-owned-vehicle-database-plate-can-custom-or-random-spawn/1050821
 
