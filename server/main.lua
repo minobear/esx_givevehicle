@@ -1,5 +1,3 @@
-ESX = nil
-TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 --give car with a random plate- 1: playerID 2: carModel (3: plate)
 RegisterCommand('givecar', function(source, args)
@@ -138,7 +136,7 @@ end)
 --functions--
 
 RegisterServerEvent('esx_giveownedcar:setVehicle')
-AddEventHandler('esx_giveownedcar:setVehicle', function (vehicleProps, playerID, vehicleType)
+AddEventHandler('esx_giveownedcar:setVehicle', function (vehicleProps, playerID, vehicleType, jobType)
 	local _source = playerID
 	local xPlayer = ESX.GetPlayerFromId(_source)
 
